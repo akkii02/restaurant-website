@@ -8,11 +8,35 @@ const CardProvider = (props) => {
     return total + item.price * item.quantity;
   }, 0);
   const addItemToCardHandler = (item) => {
-   setItems([...items,item])
+    let cartItems = [...items];
+    let hasItem = false;
+    cartItems.forEach((product) => {
+      if (product.id === item.id) {
+        hasItem = true;
+        product.quantity = Number(product.quantity) + Number(item.quantity);
+      }
+    });
+    if (hasItem) {
+      setItems([...cartItems]);
+    } else {
+      setItems((prevItems) => {
+        return [...prevItems, item];
+      });
+    }
   };
 
   const removeItemFromCartHandler = (item) => {
-   
+    const cartItems = [...items];
+    cartItems.forEach((product, index) => {
+      if (product.id === item.id && item.quantity <= 1) {
+        cartItems.splice(index, 1);
+        setItems(cartItems);
+      }
+      if (product.id === item.id && item.quantity > 1) {
+        product.quantity = Number(product.quantity) - 1;
+        setItems(cartItems);
+      }
+    });
   };
 
   const cartContext = {
