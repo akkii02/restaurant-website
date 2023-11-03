@@ -1,7 +1,5 @@
-
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
-
 const Cart = (props) => {
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -22,7 +20,6 @@ const Cart = (props) => {
         <button className={classes.button}>Order</button>
       </div>
     </Modal>
-  );
+    );
 };
-
 export default Cart;
